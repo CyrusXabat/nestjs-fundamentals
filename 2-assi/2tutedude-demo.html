@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sippline - Glass ka Mask</title>
+    <style>
+        /* Define the Noto Sans font for modern, clean typography */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap');
+
+        /* Global Reset and Base Styles */
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff; /* Default text color for the main orange area */
+            background-color: #f4f4f4; /* Light background for visibility */
+            min-height: 100vh;
+        }
+
+        /* --- Header / Navigation Bar --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            color: #333; /* Dark text for the header */
+            position: absolute; /* Position over the main content */
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 10; /* Ensure it's above other elements */
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: inherit;
+        }
+
+        .nav-links a {
+            color: inherit;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff5722; /* Hover color */
+        }
+
+        .buy-button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .buy-button:hover {
+            background-color: #000;
+        }
+
+        /* --- Main Hero Section --- */
+        .hero-container {
+            position: relative;
+            /* Full width and height for the viewport */
+            height: 100vh; 
+            overflow: hidden; /* Important to hide clipped overflow */
+        }
+
+        /* The large orange background layer, covering the entire left and clipped on the right */
+        .hero-background {
+            background-color: #ff5722; /* Main orange color */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            
+            /* KEY CSS: Using clip-path for the angular cut on the right */
+            /* Creates a polygon that cuts diagonally from a point on the top edge 
+               to a point on the bottom edge, leaving the right corner open. */
+            clip-path: polygon(
+                0 0,      /* Top-left corner */
+                70% 0,    /* Top edge, cut starts at 70% */
+                100% 100%, /* Bottom-right corner (This is where the image goes, so we cut the background here) */
+                0% 100%   /* Bottom-left corner */
+            );
+
+            /* The actual polygon to match the image: 
+               The image is composed of two white triangles forming a diamond shape, 
+               which means the orange background should be cut out to let the image show.
+               Let's adjust the points to create a smoother line and leave space for the white cutouts.
+               The visible orange part is roughly the shape below.
+            */
+            clip-path: polygon(
+                0 0, 
+                60% 0, 
+                80% 100%, 
+                0% 100%
+            );
+        }
+
+        /* Content wrapper for padding */
+        .hero-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            z-index: 5;
+            padding: 0 80px;
+            box-sizing: border-box;
+        }
+
+        /* Left side text content */
+        .text-area {
+            width: 50%;
+            max-width: 500px;
+        }
+
+        .main-heading {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .sub-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .mask-button {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .mask-button:hover {
+            background-color: #000;
+        }
+
+        /* --- Right Side Image Area --- */
+        .image-area {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%; /* Image section is on the right half */
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 2; /* Below the navbar, above the background */
+        }
+        
+        .image-container {
+            position: absolute;
+            right: 0;
+            width: 100%; /* Relative to image-area (50% of screen) */
+            height: 100%;
+            overflow: hidden;
+            
+            /* The image itself is shown through a white border effect 
+               created by two overlapping clip-path shapes.
+            */
+        }
+        
+        /* White shape 1 (Bottom-right triangle) */
+        .white-cutout-1 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 3;
+            /* Top-left to bottom-right diagonal cut */
+            clip-path: polygon(60% 0, 100% 0, 100% 100%, 80% 100%);
+            transform: scale(1.02); /* Slight scale for border effect */
+        }
+
+        /* White shape 2 (Top-left triangle) */
+        .white-cutout-2 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 3;
+            /* Bottom-left to top-right diagonal cut */
+            clip-path: polygon(65% 0, 95% 0, 100% 100%, 85% 100%);
+        }
+        
+        /* The image container itself, clipped to fit the diagonal shape */
+        .main-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4; /* Above the white cutouts */
+            
+            /* Clip the image to fit INSIDE the white cutout shape */
+            /* We use the same points as the orange background cut to keep it clean */
+            clip-path: polygon(
+                60% 0, 
+                95% 0, 
+                100% 100%, 
+                80% 100%
+            );
+
+            /* The actual image */
+            background-image: url('https://placehold.co/1000x1000/696969/FFFFFF?text=Product+Demo');
+            background-size: cover;
+            background-position: center top;
+        }
+
+        /* --- Image Placeholder for the demo (since we cannot load the specific image) --- */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #333; /* Dark background to match the original image contrast */
+            /* Clip the placeholder using the same path as the white cutouts */
+            clip-path: polygon(60% 0, 100% 0, 100% 100%, 80% 100%);
+            position: relative;
+        }
+
+        .image-placeholder .person {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.9;
+            background-image: url('image_5fb71d.jpg'); /* Using the provided image file name */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            
+            /* Apply the final clip-path to the image element */
+            clip-path: polygon(60% 0, 100% 0, 100% 100%, 80% 100%);
+
+            /* Fallback/Generic image if the uploaded file is not accessible */
+            background-image: url('https://placehold.co/1000x1000/333333/ffffff?text=Product+Ambassador');
+        }
+        
+        /* Final white cutout using a different shape for the dramatic effect */
+        .white-cutout-final {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5; /* Above the image */
+            pointer-events: none; /* Allows clicks to pass through */
+            
+            /* White shape forming the visible border */
+            background-color: white;
+            
+            /* This complex clip-path creates the overlapping diamond/border effect */
+            clip-path: polygon(
+                60% 0,      /* Top-left point of white border */
+                100% 0,     /* Top-right corner */
+                100% 100%,  /* Bottom-right corner */
+                80% 100%,   /* Bottom-left point of white border */
+                70% 50%     /* Center point of the internal image cutout (approximate) */
+            );
+            
+            /* Correcting the visual look by layering a smaller clipped image over a larger white clip */
+            /* We will use two large clipped divs to create the effect */
+        }
+        
+        /* The final two clipped layers to create the border effect */
+        .clip-layer-white {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 3;
+            /* Polygon for the large white shape that the image sits inside */
+            clip-path: polygon(55% 0, 100% 0, 100% 100%, 75% 100%);
+        }
+        
+        .clip-layer-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            /* Placeholder image using the final clip-path to create the border effect */
+            background-image: url('https://placehold.co/1000x1000/333333/ffffff?text=Product+Ambassador');
+            background-size: cover;
+            background-position: 75% center; /* Shift focus to the right */
+            
+            /* Polygon for the image itself, smaller than the white one to create a white border */
+            clip-path: polygon(60% 0, 95% 0, 95% 100%, 80% 100%);
+        }
+
+
+        /* Responsive Adjustments for Mobile */
+        @media (max-width: 992px) {
+            .navbar {
+                padding: 15px 30px;
+            }
+            
+            .nav-links {
+                display: none; /* Hide main links on mobile */
+            }
+
+            .hero-container {
+                height: auto; /* Allow content to dictate height */
+            }
+
+            .hero-background {
+                /* On small screens, make the orange background rectangular (or mostly so) */
+                clip-path: polygon(0 0, 100% 0, 100% 50vh, 0% 50vh); 
+                height: 50vh; /* Only cover the top half */
+            }
+
+            .hero-content {
+                flex-direction: column;
+                padding: 50px 30px;
+                position: static;
+            }
+
+            .text-area {
+                width: 100%;
+                max-width: none;
+                text-align: center;
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
+            
+            .main-heading {
+                font-size: 2.5rem;
+            }
+            
+            .sub-text {
+                font-size: 1rem;
+            }
+
+            .image-area {
+                position: static;
+                width: 100%;
+                height: 50vh; 
+            }
+            
+            /* Make the white cutouts and image rectangular on mobile */
+            .clip-layer-white, 
+            .clip-layer-image {
+                clip-path: none;
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-container">
+
+        <!-- 1. The Main Orange Background Layer with Clip-Path -->
+        <div class="hero-background"></div>
+        
+        <!-- 2. The Right-Side Image Area with Clipping and White Borders -->
+        <div class="image-area">
+            <!-- White clipped layer (the border) -->
+            <div class="clip-layer-white"></div>
+            <!-- Image clipped layer (the actual content) -->
+            <div class="clip-layer-image"></div>
+        </div>
+        
+        <!-- Navigation Bar (on top of everything) -->
+        <nav class="navbar">
+            <div class="logo">Sippline</div>
+            <div class="nav-links">
+                <a href="#">Shop</a>
+                <a href="#">About</a>
+                <a href="#">Blogs</a>
+                <a href="#">Contact</a>
+                <a href="#" class="buy-button">Buy Now</a>
+            </div>
+            <!-- Note: Hamburger menu logic would be needed for a fully responsive production site -->
+        </nav>
+
+        <!-- Text Content Area -->
+        <div class="hero-content">
+            <div class="text-area">
+                <h1 class="main-heading">Sippline drinking shields – The “Glass ka Mask”</h1>
+                <p class="sub-text">
+                    Sippline Drinking Shield aims to protect the user from not just such fatal diseases but, also the mild ones such as common flu. Sippline drinking shield does the same job a face mask does, albeit differently.
+                </p>
+                <a href="#" class="mask-button">Buy the Glass Mask!</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

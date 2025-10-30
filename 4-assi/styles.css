@@ -1,0 +1,77 @@
+body {
+  background: #f2f2f2;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.centered-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form {
+  background: #fff;
+  padding: 32px 28px;
+  border-radius: 14px;
+  box-shadow: 0 2px 18px rgba(0,0,0,0.15);
+  width: 330px;
+}
+h2 {
+  margin-bottom: 20px;
+}
+.form-group {
+  margin-bottom: 18px;
+  position: relative;
+}
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  background: #3498db;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background 0.2s;
+}
+button:hover {
+  background: #217dbb;
+}
+#message {
+  margin-bottom: 13px;
+}
+.errorBox {
+  background: #fff6f6;
+  color: #d8000c;
+  border-left: 4px solid #d8000c;
+  padding: 10px 10px;
+  border-radius: 8px;
+}
+.successBox {
+  background: #f9fff8;
+  color: #249b2b;
+  border-left: 4px solid #249b2b;
+  padding: 10px 10px;
+  border-radius: 8px;
+}
+.toggle-password {
+  position: absolute;
+  top: 34px;
+  right: 15px;
+  font-size: 0.95rem;
+  color: #888;
+  cursor: pointer;
+  user-select: none;
+}
+.password-wrapper {
+  position: relative;
+}

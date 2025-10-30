@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuteDude - 01: HTML Learning Demo Page</title>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#trivia">Trivia</a></li>
+                <li><a href="#extras">Extras</a></li>
+                <li><a href="#feedback">Feedback</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <h1>Welcome to <mark>TuteDude</mark> - Your Learning Hub</h1>
+
+        <p>This is the official demonstration page for **TuteDude**, a fictional platform dedicated to making **web development** learning **<u>accessible</u>** and **<u>fun</u>**.</p>
+        
+        <figure>
+            <img src="placeholder-learning-image.jpg" alt="A stylized image representing digital learning on a laptop." width="600" height="350">
+            <figcaption><small>Master the web, one tutorial at a time.</small></figcaption>
+        </figure>
+    </header>
+
+    <main>
+        
+        <section id="about">
+            <h2>About TuteDude</h2>
+            <p>
+                TuteDude is the **premier destination** for new and experienced developers. Our mission is to provide *high-quality*, *practical* tutorials. We believe that **learning should be engaging**, which is why our courses are designed to be hands-on. <small>Start your journey with us today!</small>
+            </p>
+            
+            <blockquote>
+                "The best way to predict the future is to create it, and TuteDude gives you the tools to create your digital future."
+                <cite>— A Satisfied Learner</cite>
+            </blockquote>
+        </section>
+
+        <hr>
+
+        <section id="menu">
+            <h2>Course Catalog Snapshot</h2>
+
+            <table>
+                <caption>Fundamental Web Technologies</caption>
+                
+                <thead>
+                    <tr>
+                        <th colspan="2">Course Name</th>
+                        <th>Level</th>
+                        <th>Duration</th>
+                        <th>Prerequisites</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">HTML/CSS Basics</td>
+                        <td>HTML5 Essentials</td>
+                        <td>Beginner</td>
+                        <td>4 Weeks</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <details>
+                                <summary>Detailed Syllabus</summary>
+                                <table>
+                                    <tr><th>Module</th><th>Topics Covered</th></tr>
+                                    <tr><td>Module 1</td><td>Semantic Tags, Forms, Media</td></tr>
+                                    <tr><td>Module 2</td><td>CSS Selectors, Flexbox</td></tr>
+                                </table>
+                            </details>
+                        </td>
+                        <td>Beginner</td>
+                        <td>6 Weeks</td>
+                        <td>Basic Computer Skills</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">JavaScript Fundamentals</td>
+                        <td>Intermediate</td>
+                        <td>8 Weeks</td>
+                        <td>HTML/CSS Proficiency</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section id="trivia">
+            <h2>Web Development Trivia</h2>
+            
+            <aside>
+                <h3>Did You Know?</h3>
+                <p>The term **"bug"** in computing originated from a literal moth found in a relay of the Harvard Mark II computer in 1947. *It's a testament to the hardware origins of our digital world!*</p>
+            </aside>
+        </section>
+
+        <hr>
+
+        <section id="extras">
+            <h2>Media & Engagement</h2>
+            
+            <figure>
+                <figcaption>Listen to our introductory message:</figcaption>
+                <audio controls>
+                    <source src="intro-audio.mp3" type="audio/mpeg">
+                    <p>Your browser does not support the audio element.</p>
+                </audio>
+            </figure>
+
+            <figure>
+                <figcaption>Watch a quick promo:</figcaption>
+                <video width="320" height="240" controls poster="video-poster.jpg">
+                    <source src="promo-video.mp4" type="video/mp4">
+                    <source src="promo-video.ogg" type="video/ogg">
+                    <p>Your browser does not support the video tag.</p>
+                </video>
+            </figure>
+        </section>
+        
+        <hr>
+
+        <section id="feedback">
+            <h2>User Feedback Form</h2>
+            
+            <form action="/submit-feedback" method="POST">
+                <fieldset>
+                    <legend>Your Details</legend>
+
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="user_name" required><br><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="user_email" placeholder="e.g., yourname@example.com" required><br><br>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Your Feedback</legend>
+                    
+                    <label for="topic">Topic of Feedback:</label>
+                    <select id="topic" name="feedback_topic">
+                        <option value="general">General Inquiry</option>
+                        <option value="course">Course Content</option>
+                        <option value="technical">Technical Issue</option>
+                    </select><br><br>
+
+                    <label for="priority">Priority:</label>
+                    <input type="radio" id="high" name="priority" value="high">
+                    <label for="high">High</label>
+                    <input type="radio" id="medium" name="priority" value="medium" checked>
+                    <label for="medium">Medium</label>
+                    <input type="radio" id="low" name="priority" value="low">
+                    <label for="low">Low</label><br><br>
+                    
+                    <label for="comments">Comments/Suggestions:</label><br>
+                    <textarea id="comments" name="feedback_comments" rows="5" cols="40" placeholder="Type your detailed feedback here..."></textarea><br><br>
+                    
+                    <input type="checkbox" id="newsletter" name="subscribe_newsletter" checked>
+                    <label for="newsletter">Subscribe to our newsletter</label><br><br>
+                </fieldset>
+                
+                <button type="submit">Send Feedback</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer id="contact">
+        <hr>
+        <address>
+            Contact TuteDude:<br>
+            Email: <a href="mailto:info@tutedude.com">info@tutedude.com</a><br>
+            Phone: (555) 123-4567<br>
+            Address: 123 Web St, Code City, CA 90210
+        </address>
+
+        <p><small>&copy; 2025 TuteDude Learning Platform. All rights reserved.</small></p>
+    </footer>
+
+</body>
+</html>

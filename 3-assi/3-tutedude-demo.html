@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuteDude - Assignment 3: DOM Implementation</title>
+    <!-- Load Tailwind CSS for modern styling and responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for demonstration boxes */
+        .color-box {
+            /* Ensures boxes are squares and have a nice base style */
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            user-select: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333; /* Default text color */
+        }
+
+        .color-box:hover {
+            transform: scale(1.05);
+        }
+
+        /* Initial background colors before clicking, using lighter shades for visibility */
+        #box-red { background-color: #fee2e2; }
+        #box-blue { background-color: #dbeafe; }
+        #box-green { background-color: #d1fae5; }
+        #box-yellow { background-color: #fef9c3; }
+
+        /* The final color classes applied by JavaScript */
+        .bg-red-final { background-color: #ef4444 !important; color: white !important; }
+        .bg-blue-final { background-color: #3b82f6 !important; color: white !important; }
+        .bg-green-final { background-color: #10b981 !important; color: white !important; }
+        .bg-yellow-final { background-color: #f59e0b !important; color: white !important; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center p-4">
+
+    <!-- Main Content Container -->
+    <div class="max-w-4xl w-full bg-white shadow-xl rounded-xl p-8 space-y-10">
+
+        <!-- Header Section -->
+        <header class="text-center pb-4 border-b-2 border-indigo-100">
+            <!-- Header with the greeting message -->
+            <h1 id="greeting-header" class="text-5xl font-extrabold text-indigo-700">Hello</h1>
+            <p class="mt-2 text-gray-500">Practice DOM manipulation by changing the header and colors!</p>
+        </header>
+
+        <!-- Color Boxes Section -->
+        <section class="space-y-6">
+            <h2 class="text-3xl font-semibold text-gray-800 text-center">Interactive Color Boxes</h2>
+
+            <div class="flex flex-wrap justify-center gap-6">
+                <!-- Box 1: Red -->
+                <div id="box-red" data-color="red" data-final-class="bg-red-final" class="color-box rounded-lg shadow-md hover:shadow-lg">
+                    Red
+                </div>
+
+                <!-- Box 2: Blue -->
+                <div id="box-blue" data-color="blue" data-final-class="bg-blue-final" class="color-box rounded-lg shadow-md hover:shadow-lg">
+                    Blue
+                </div>
+
+                <!-- Box 3: Green -->
+                <div id="box-green" data-color="green" data-final-class="bg-green-final" class="color-box rounded-lg shadow-md hover:shadow-lg">
+                    Green
+                </div>
+
+                <!-- Box 4: Yellow -->
+                <div id="box-yellow" data-color="yellow" data-final-class="bg-yellow-final" class="color-box rounded-lg shadow-md hover:shadow-lg">
+                    Yellow
+                </div>
+            </div>
+        </section>
+
+        <!-- Greet User Section -->
+        <section class="pt-6 border-t-2 border-indigo-100 space-y-4">
+            <h2 class="text-3xl font-semibold text-gray-800 text-center">Greet The User</h2>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                
+                <!-- Input Field for User's Name -->
+                <input 
+                    type="text" 
+                    id="user-name" 
+                    placeholder="Enter your name" 
+                    class="p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full sm:w-64 text-lg"
+                    aria-label="User name input"
+                >
+                
+                <!-- Button to Greet the User -->
+                <button 
+                    id="greet-button" 
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-150 ease-in-out w-full sm:w-auto text-lg"
+                >
+                    Greet Me!
+                </button>
+            </div>
+            <p id="message-area" class="text-center text-sm text-gray-600 mt-2 h-5"></p>
+        </section>
+        
+    </div>
+
+    <!-- JavaScript Implementation (DOM Manipulation) -->
+    <script>
+        // DOM Element References
+        const greetingHeader = document.getElementById('greeting-header');
+        const userNameInput = document.getElementById('user-name');
+        const greetButton = document.getElementById('greet-button');
+        const colorBoxes = document.querySelectorAll('.color-box');
+        const messageArea = document.getElementById('message-area');
+
+        // --- Task 1: Greet User Functionality ---
+        greetButton.addEventListener('click', () => {
+            const name = userNameInput.value.trim();
+
+            if (name) {
+                // Change the greeting message in the header
+                greetingHeader.textContent = `Hello, ${name}`;
+                messageArea.textContent = 'Greeting updated successfully!';
+                messageArea.classList.remove('text-red-500');
+                messageArea.classList.add('text-green-500');
+            } else {
+                // Simple validation for empty input
+                messageArea.textContent = 'Please enter a name before greeting.';
+                messageArea.classList.remove('text-green-500');
+                messageArea.classList.add('text-red-500');
+            }
+        });
+
+        // --- Task 2: Change Box Color Functionality ---
+        colorBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                // Get the intended final color class from the data attribute
+                const finalColorClass = box.dataset.finalClass;
+                const colorName = box.dataset.color;
+
+                // Remove all other color classes from this box (useful for cleanup if you clicked multiple times)
+                box.classList.remove('bg-red-final', 'bg-blue-final', 'bg-green-final', 'bg-yellow-final');
+
+                // Add the specific final color class
+                box.classList.add(finalColorClass);
+
+                // Optional: Provide feedback
+                messageArea.textContent = `Box set to ${colorName.toUpperCase()}!`;
+                messageArea.classList.remove('text-red-500');
+                messageArea.classList.add('text-indigo-500');
+            });
+        });
+    </script>
+
+</body>
+</html>
